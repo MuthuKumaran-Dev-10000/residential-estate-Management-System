@@ -3,95 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Management System</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* Your custom CSS styles here */
         body {
-            background: linear-gradient(to right, #d2e7f0, #203a43, #808081);
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
             animation: gradientBackground 10s ease infinite;
         }
-        #yinyang-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
-        #yinyang {
-            width: 300px;
-            height: auto;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
-            text-align: center;
+            margin-top: 100px;
+            max-width: 400px;
         }
 
-        h2 {
-            color: #100e0e;
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .link-container {
-            margin-top: 20px;
+        .card:hover {
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .link-container a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
+        .card-body {
+            padding: 40px;
+        }
+
+        .form-group label {
             color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 10px;
+            font-weight: 500;
         }
 
-        .link-container a:hover {
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            border-radius: 0;
+            color: #fff;
+            outline: none;
+            box-shadow: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="text"]::placeholder,
+        .form-group input[type="password"]::placeholder {
+            color: #ccc;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: #007bff;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
             background-color: #0056b3;
         }
 
-        .link-container a.client-side {
-            background-color: #fff;
-            color: #000;
+        .signup-link {
+            color: #fff;
+            font-size: 14px;
+            margin-top: 20px;
         }
 
-        .link-container a.client-side:hover {
-            background-color: #f0f0f0;
-        }
-
-        .link-container a.office-side {
-            background-color: #000;
+        .signup-link a {
             color: #fff;
         }
 
-        .link-container a.office-side:hover {
-            background-color: #333;
+        .signup-link a:hover {
+            text-decoration: none;
+        }
+
+        /* Loader styles */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div id="yinyang-container">
-        <map name="yinyang-map">
-           
-            <area shape="rect" coords="150,0 0,150 0,300 150,150" href="./Client%20Side/index.html" alt="Client Side">
-            
-            <area shape="rect" coords="150,0 300,150 300,300 150,150" href="./Office%20Side/index.html" alt="Office Side">
-        </map>
-        <img id="yinyang" src="yinyan.png" usemap="#yinyang-map" alt="Yin Yang Symbol">
-    <br></div><br>
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+    </div>
     <div class="container">
-        <h2>Welcome to Home Management System</h2>
-        <div class="link-container">
-            <a href="./tree/main/Client%20Side/index.html" class="client-side">Client Side</a>
-            <a href=".tree/main/Office%20side/index.html" class="office-side">Office Side</a>
+        <div class="card bg-transparent">
+            <div class="card-body">
+                <h1 class="text-center text-white">LOGIN PAGE</h1>
+                <form id="login" onsubmit="validate(event)">
+                    <div class="form-group">
+                        <label for="username">USERNAME</label>
+                        <input type="text" id="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" id="password" class="form-control" required>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block">
+                    <p class="signup-link text-center">Don't have an account? <a href="Signup.html">Signup</a></p>
+                </form>
+            </div>
         </div>
     </div>
-</body>
 
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
+            authDomain: "ticket-management-system-65caa.firebaseapp.com",
+            databaseURL: "https://ticket-management-system-65caa-default-rtdb.firebaseio.com",
+            projectId: "ticket-management-system-65caa",
+            storageBucket: "ticket-management-system-65caa.appspot.com",
+            messagingSenderId: "865606629959",
+            appId: "1:865606629959:web:97375dc49961504f2a0f62",
+            measurementId: "G-VTG0KT6DLE"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        function validate(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            firebase.database().ref('Employees').once('value')
+                .then((snapshot) => {
+                    let isValid = false;
+                    snapshot.forEach((childSnapshot) => {
+                        const employee = childSnapshot.val();
+                        if (employee.username === username && employee.password === password) {
+                            // Store the unique identifier and user data in session storage
+                            sessionStorage.setItem('userId', employee.uid);
+                            sessionStorage.setItem('username', username);
+                            sessionStorage.setItem('password', password);
+                            isValid = true;
+
+                            // Redirect based on work type
+                            const workType = employee.work.toLowerCase();
+                            if (workType === 'management') {
+                                window.location.href = 'managementhome.html';
+                            } else if (workType === 'electrician') {
+                                window.location.href = 'electricianhome.html';
+                            } else if (workType === 'plumber') {
+                                window.location.href = 'plumberhome.html';
+                            } else if (workType === 'mechanical') {
+                                window.location.href = 'mechanicalhome.html';
+                            } else if (workType === 'office staff') {
+                                window.location.href = 'officestaffhome.html';
+                            } else if (workType === 'carpenter') {
+                                window.location.href = 'carpenterhome.html';
+                            } else {
+                                console.log('Invalid work type!');
+                            }
+                            return; // Exit the loop after finding the user
+                        }
+                    });
+                    if (!isValid) {
+                        // If no matching user is found
+                        console.log('Invalid username or password');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching user data:', error);
+                    alert('Error occurred while logging in');
+                });
+        }
+    </script>
+</body>
 </html>
