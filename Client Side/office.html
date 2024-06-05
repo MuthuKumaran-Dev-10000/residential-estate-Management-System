@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Usage Form</title>
+</head>
+<body>
+    <h2>Office Usage Form</h2>
+    <form id="officeForm">
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            <option value="Block A">Block A</option>
+            <option value="Block B">Block B</option>
+            <!-- Add more options as needed -->
+        </select><br><br>
+
+        <label for="contactName">Contact Person Name:</label>
+        <input type="text" id="contactName" name="contactName" required><br><br>
+
+        <label for="contactNumber">Contact Person Number:</label>
+        <input type="text" id="contactNumber" name="contactNumber" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
+            authDomain: "ticket-management-system-65caa.firebaseapp.com",
+            databaseURL: "https://ticket-management-system-65caa-default-rtdb.firebaseio.com",
+            projectId: "ticket-management-system-65caa",
+            storageBucket: "ticket-management-system-65caa.appspot.com",
+            messagingSenderId: "865606629959",
+            appId: "1:865606629959:web:97375dc49961504f2a0f62",
+            measurementId: "G-VTG0KT6DLE"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to the Employees collection in the database
+        const employeesRef = firebase.database().ref('Employees');
+
+        // Form submission event listener
+        document.getElementById('officeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Get form values
+            const location = document.getElementById('location').value;
+            const contactName = document.getElementById('contactName').value;
+            const contactNumber = document.getElementById('contactNumber').value;
+
+            // Generate unique identifier
+            const uniqueId = Date.now().toString();
+
+            // Store data in the database
+            employeesRef.child(uniqueId).set({
+                location: location,
+                contactName: contactName,
+                contactNumber: contactNumber,
+                uniqueId: uniqueId
+            })
+            .then(() => {
+                alert('Data stored successfully!');
+                // Clear form fields after successful submission
+                document.getElementById('officeForm').reset();
+            })
+            .catch(error => {
+                console.error('Error storing data:', error);
+                alert('An error occurred while storing data. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>

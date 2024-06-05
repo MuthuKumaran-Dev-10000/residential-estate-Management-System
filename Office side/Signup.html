@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            animation: gradientBackground 10s ease infinite;
+        }
+        form {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            background-color: #14202E; /* Navy Blue */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #FFD700; /* Gold */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #88A9C3; /* Blue Gray */
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"],
+        #work,
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2B4257; /* Midnight Blue */
+            color: #FFFFFF; /* White */
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #FFD700; /* Gold */
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #C0C0C0; /* Silver */
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Signup Form</h2><br><br>
+    <form id="signupForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+        <label for="alternatePhoneNumber">Alternate Phone Number:</label>
+        <input type="tel" id="alternatePhoneNumber" name="alternatePhoneNumber">
+        <label for="block">Block:</label>
+        <input type="text" id="block" name="block">
+        <label for="work">Work:</label>
+        <select id="work" name="work" onchange="checkWork()">
+            <option value="Management">Management</option>
+            <option value="Electrician">Electrician</option>
+            <option value="Carpenter">Carpenter</option>
+            <option value="Plumber">Plumber</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Other">Other</option>
+        </select>
+        <input type="text" id="otherWork" name="otherWork" style="display: none;">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <button type="button" onclick="signup()">Signup</button>
+    </form>
+    <p id="error"></p>
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
+            authDomain: "ticket-management-system-65caa.firebaseapp.com",
+            databaseURL: "https://ticket-management-system-65caa-default-rtdb.firebaseio.com",
+            projectId: "ticket-management-system-65caa",
+            storageBucket: "ticket-management-system-65caa.appspot.com",
+            messagingSenderId: "865606629959",
+            appId: "1:865606629959:web:97375dc49961504f2a0f62",
+            measurementId: "G-VTG0KT6DLE"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Generate a random unique identifier similar to "1716919235285"
+        function generateUniqueId() {
+            return Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
+        }
+
+        function signup() {
+            // Retrieve form values
+            var username = document.getElementById('username').value.trim();
+            var phoneNumber = document.getElementById('phoneNumber').value.trim();
+            var alternatePhoneNumber = document.getElementById('alternatePhoneNumber').value.trim();
+            var block = document.getElementById('block').value.trim();
+            var work = document.getElementById('work').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showError('Passwords do not match');
+                return;
+            }
+
+            // Check if username already exists
+            var usernamesRef = firebase.database().ref('Employees/' + username);
+            usernamesRef.once('value', function(snapshot) {
+                if (snapshot.exists()) {
+                    showError('Username already exists');
+                } else {
+                    // Generate a unique identifier
+                    var uniqueIdentifier = generateUniqueId();
+
+                    // Store user data in the Employees field
+                    var userData = {
+                        username: username,
+                        phoneNumber: phoneNumber,
+                        alternatePhoneNumber: alternatePhoneNumber,
+                        block: block,
+                        work: work,
+                        password: password,
+                        uid: uniqueIdentifier
+                    };
+
+                    firebase.database().ref('Employees/' + uniqueIdentifier).set(userData)
+                        .then(function() {
+                            alert('Signup successful');
+                            window.location.href = "index.html"; // Redirect to login page
+                        })
+                        .catch(function(error) {
+                            showError(error.message);
+                        });
+                }
+            });
+        }
+
+        function showError(message) {
+            document.getElementById('error').textContent = message;
+        }
+
+        // Function to show/hide the 'otherWork' input based on the selection in the 'work' dropdown
+        function checkWork() {
+            var workSelect = document.getElementById('work');
+            var otherWorkInput = document.getElementById('otherWork');
+
+            if (workSelect.value === 'Other') {
+                otherWorkInput.style.display = 'block';
+            } else {
+                otherWorkInput.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+

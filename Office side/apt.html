@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image to Firebase Storage</title>
+</head>
+<body>
+    <input type="file" id="imageInput" accept="image/*">
+    <button onclick="uploadImage()">Upload Image</button>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-storage.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
+            authDomain: "ticket-management-system-65caa.firebaseapp.com",
+            databaseURL: "https://ticket-management-system-65caa-default-rtdb.firebaseio.com",
+            projectId: "ticket-management-system-65caa",
+            storageBucket: "ticket-management-system-65caa.appspot.com",
+            messagingSenderId: "865606629959",
+            appId: "1:865606629959:web:97375dc49961504f2a0f62",
+            measurementId: "G-VTG0KT6DLE"
+        };
+
+        // Initialize Firebase app
+        const app = initializeApp(firebaseConfig);
+
+        // Get a reference to Firebase Storage
+        const storage = getStorage(app);
+
+        // Function to upload image to Firebase Storage
+        function uploadImage() {
+            const imageInput = document.getElementById('imageInput');
+            const file = imageInput.files[0];
+            
+            if (file) {
+                // Construct the path for the image in Firebase Storage
+                const storageRef = ref(storage, `images/${file.name}`);
+                
+                // Upload the image file to Firebase Storage
+                uploadBytes(storageRef, file).then((snapshot) => {
+                    console.log('Image uploaded successfully:', snapshot);
+                    alert('Image uploaded successfully!');
+                }).catch((error) => {
+                    console.error('Error uploading image:', error);
+                    alert('Error uploading image: ' + error.message);
+                });
+            } else {
+                console.error('No file selected for upload');
+                alert('Please select an image to upload');
+            }
+        }
+    </script>
+</body>
+</html>

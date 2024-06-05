@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Home</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      body {
+            background: linear-gradient(to right, #d2e7f0, #203a43, #808081);
+            animation: gradientBackground 10s ease infinite;
+        }
+.btn:hover,
+.btn-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.call-button{
+    color:#222
+}
+
+.navbar-nav li:hover {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Parallax Scrolling */
+.parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-section {
+    height: 400px; /* Adjust height as needed */
+    position: relative;
+}
+
+.parallax-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+
+/* Scroll Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slideInRight {
+    animation: slideInRight 1s ease;
+}
+
+/* Your Custom Styles */
+.container {
+    margin-top: 50px;
+}
+
+.block-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.user-container {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.back-arrow {
+    cursor: pointer;
+    color: blue;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.pending-works-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.assigned-works-container {
+    margin: 20px;
+}
+
+.assigned-work-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.call-button {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.info-item {
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.work-type-container {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.work-container {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.latest-info-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Hover Effects */
+.block-container:hover,
+.user-container:hover,
+.back-arrow:hover,
+.pending-works-container:hover,
+.assigned-work-item:hover,
+.call-button:hover,
+.info-item:hover,
+.work-type-container:hover,
+.work-container:hover,
+.latest-info-container:hover {
+    background-color: #f0f0f0; /* Change to any color you prefer */
+}
+
+.info-item {
+    display: flex;
+ justify-content:space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .info-content {
+            flex-grow: 1;
+        }
+        .button-container {
+            display: flex;
+            position: absolute;
+            right: 10px;
+        }
+        .info-item button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #fff;
+            margin-left: 2px; /* Small margin to avoid overlap */
+        }
+        .info-item .update-button {
+            background-color: #007bff;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .info-item .delete-button {
+            background-color: #dc3545;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        /* Style for the toggle container */
+#toggleContainer {
+  display: inline-block;
+}
+
+/* Hide the default checkbox */
+#toggleBtn {
+  display: none;
+}
+
+/* Style for the toggle button appearance */
+#toggleBtn + label {
+  display: inline-block;
+  cursor: pointer;
+  width: 60px; /* Width of the toggle button */
+  height: 30px; /* Height of the toggle button */
+  background-color: #ccc; /* Default background color */
+  border-radius: 15px; /* Half of the height */
+  position: relative;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Change background color when toggle is checked */
+#toggleBtn:checked + label {
+  background-color: #007bff; /* Blue color when toggle is on */
+}
+
+/* Style for the indicator inside the toggle button */
+#toggleBtn + label::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px; /* Width of the indicator */
+  height: 26px; /* Height of the indicator */
+  background-color: #fff; /* Color of the indicator */
+  border-radius: 50%;
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+}
+
+/* Move the indicator to the right when toggle is checked */
+#toggleBtn:checked + label::after {
+  transform: translateX(30px); /* Position the indicator to the right */
+}
+
+/* Hide the outline on focus */
+#toggleBtn:focus + label {
+  outline: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Apartment Blocks</h2>
+                <div id="blocks">
+                    <!-- Blocks will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="section">
+                    <h2>Pending Works</h2>
+                    <button class="btn btn-primary mb-3" onclick="assignPendingWorks()">Assign Pending Works</button>
+                   <br> <div id="toggleContainer">
+                        <input type="checkbox" id="toggleBtn">
+                        <label for="toggleBtn"></label><br>
+                        <label >Automatically assign task 30 mins once</label>
+                    </div>
+                    <div class="pending-works-container" id="pendingWorks" style="display: none;">
+                        <!-- Pending works will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="section">
+                    <h2>Latest Info</h2>
+                    <button class="btn btn-primary mb-3" onclick="addNewInfo()">Add New</button>
+                    <div class="latest-info-container" id="latestInfo" style="display: none;">
+                        <!-- Latest info will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="section">
+                    <h2>Assigned Works</h2>
+                    <div class="assigned-works-container" id="assignedWorks"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <h3>About Us</h3>
+                <p>Hi Guys I am Muthukumaran an FullStack Web Developer </p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Office Login</a></li>
+                    <li><a href="Signup.html">Office Signup</a></li>
+                    <li><a href="../Client Side\index.html">Client Login</a></li>
+                    <li><a href="../Client Side\Signup.html">Client Signup</a></li>
+                </ul>
+            </div> 
+            <div class="col-lg-4 col-md-12">
+                <h3>Contact Us</h3>
+                <p><a href="mailto:muthukumarandeveloper@gmail.com">Email: muthukumarandeveloper@gmail.com</a></p>
+                <p><a href="tel:+917904896640">Phone: +91 7904896640</a></p>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/_millionaire_wolf/" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAA5hJREFUWEftl1moTmEUhp9jDLkhY5RkJlNJpAyRKbkwS5JQppKhkHmIEJIhUxKZiVKEkDKFzFMoRRQukczfq7X1+c7+996/38W5sOp0zv/t9a39nrXe9a71F1HCrKiE4eE/oLSK5JOhFkAboB5QOi2wPf8GPAduAvey3MkCaBiwCGiQJWCCzxNgDnAgKU4SoFrATqBHgUDC66dd1kYBr+LiJgE6CfS0S5eAHcANS/2XjCDLA62A9sAEoIndOwH0yQfQAOCQXZgNLMsIIMmtHLAWGG9OA4HD4YVcGVK9xRnVe0gBYLoCw4EawHHL8nWgJfDYy9jvV8QBagbcN4/OwIUCAE0E1gdlGgHssrO6wEs/fhwgv1xKcy6+VAamAR2A1sAP4BZwBVgJfLDs7rMXqkFEZmVeFZD1s8wlZkg13gi8A6rlyE5368DaOZ6/AEYC511pJBvVLetnHNhKwHu7pwzqXYmAZgArgKdAw5gXdgHOeedngTtAGcc5lbub96yTk42LQQxV5budzQKWpwGaa0J418jn+6tMD4A6lkERVrrim6RiD1DFVLo58DHw+WpqP8/9XpwGaIHjw3xA3dAuCDQG2Gpn0hHpSZyppQ/aA5UuInHkK14qo5kALTRHkVOE9W07MNoJ5mWgYw4w0bHml8i+yUTRd//ktE2imQmQ5pbKdtsC+oEemnaolSenANoCjM0RRx1Y0aihavy2uLaPSvYIaBq8VGeNXfdtcByalAJos5tX44xz4pFv6jJ1m/ijLGUCJPKGgfYCQ01rwnKG+KRJmmPij3jkm0hewR3onxdF/hrQTG+uFRM1L+5gl9399nkqsCYA9Bkoa9RYkgZINRXyuJLVtGlfFXjrtEpj4FTwst5OjXdb27826ZDIRlbKAdHiJis2uOM4JKelwLMcS1mvoN2ThFEi6YuoQIjMIrVMo2d1Wob+9egIueWPDu1IkoVEDvV37X7UhqW0Imm4asxo+dKurXEQDtcQjD7Xt+zrbw3yI2mAtNVJb2SFrh9xgPz1Q18colXnl2/agibCRmtsXPB8zzQurpngvrHF7Y8YuQD19fYU6YR+tO8UYuEKG7saJy35Wl8HGYKrbsJvsyVfW4CmdRaLlnwN6Sle1ypG27g4SYDUnqu8pTwLgCw+2gLUXb42JXZZGFQcWud2nEZZ3pbgo4VvuuvIY0lxsnxzje6XmK/SBSYmv+v5ZCi/yH/p/R9QWuJ+ArGquSWsrGisAAAAAElFTkSuQmCC"/></a>
+                    <a href="https://www.linkedin.com/in/muthukumaran-s-901317287/" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAdRJREFUWEft2DusDVEUxvHfFRQk4pEo1NxKIxpReDZKQkNudXVXtKLwVmp1EjoKCUqFeDSCQkGpu5RXJ94Rs2TmZmdnziNz5pxzJbOr2TOz1vqfb621954zY4WNmRXGowMalJFeCh3BnkHGIz5/VcR4nPuoAzqKhyMGG9b8GB6lL9cBXcHlYT2O+N7Vwj7iLY//EmgJd/ASezGPLSMqU5k3Uig3uo4L0wQ6hGcJwGE8mSZQKHIpAZi6Qp9xC6/LGjqNzdNUqKXYtW4aFfULPE/c7cPBch7p+1Neh2pniy5cxG28wTfswnlsrUFqBJQbXcS10vmaouN+l9fbsYBzyb2KYQOeYncGNVagjQXMV/zskeNQ6u0kgapYm7AD74pUfc8APiCUbHVh7JWyCHIc9/l3zvqI2Qwqnp2YJNB77EwCBuCDZH4TZ9oGikUyijFGWtQx/4L1ScAo8BvJPJohFJ5Yyn5gbRIwjhYVfNxO0x3zVrqsn0K/sLqPAnHOSs8/HVCuQKfQRGoo31z3F5vtgbJw08216qJVSVH3s23cZdnq3+q0UZe1SpA5GwroZLEH3R0nReL7FO6lseq+y9ZhDtvGDPWp/OFxZFke3b8fg1TvFBqk0F+1k5wlZYYMhgAAAABJRU5ErkJggg=="/></a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* Footer Styles */
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 60px 0;
+}
+
+.footer h3 {
+    color: #fff;
+}
+
+.footer p {
+    color: #ccc;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #ccc;
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #fff;
+}
+</style>
+
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+
+    <script>
+        // Function to call assignPendingWorks every 30 minutes
+function startAssignPendingInterval() {
+    const interval = setInterval(assignPendingWorks, 30 * 60 * 1000); // 30 minutes interval
+
+    // Return the interval so it can be cleared later
+    return interval;
+}
+
+// Function to stop calling assignPendingWorks
+function stopAssignPendingInterval(interval) {
+    clearInterval(interval); // Clear the interval
+}
+
+// Check the toggle button state and start/stop interval accordingly
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.getElementById('toggleBtn');
+    let interval;
+
+    toggleBtn.addEventListener('change', function () {
+        if (toggleBtn.checked) {
+            interval = startAssignPendingInterval(); // Start the interval
+        } else {
+            stopAssignPendingInterval(interval); // Stop the interval
+        }
+    });
+});
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
+            authDomain: "ticket-management-system-65caa.firebaseapp.com",
+            databaseURL: "https://ticket-management-system-65caa-default-rtdb.firebaseio.com",
+            projectId: "ticket-management-system-65caa",
+            storageBucket: "ticket-management-system-65caa.appspot.com",
+            messagingSenderId: "865606629959",
+            appId: "1:865606629959:web:97375dc49961504f2a0f62",
+            measurementId: "G-VTG0KT6DLE"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const database = firebase.database();
+
+        function displayBlocks() {
+            const signupFormDataRef = database.ref('signupFormData');
+            const blocksContainer = document.getElementById('blocks');
+            signupFormDataRef.once('value', function(snapshot) {
+                const blocks = {};
+                snapshot.forEach(function(childSnapshot) {
+                    const userData = childSnapshot.val();
+                    const block = userData.block;
+                    if (!blocks[block]) {
+                        blocks[block] = [];
+                    }
+                    blocks[block].push(userData);
+                });
+                // Clear previous content
+                blocksContainer.innerHTML = '';
+                // Create a div for each block
+                for (const block in blocks) {
+                    const blockDiv = document.createElement('div');
+                    blockDiv.classList.add('block-container');
+                    blockDiv.textContent = `Block: ${block}`;
+                    blockDiv.addEventListener('click', function() {
+                        displayUsers(blocks[block]);
+                    });
+                    blocksContainer.appendChild(blockDiv);
+                }
+            });
+        }
+
+        function displayUsers(users) {
+            const blocksContainer = document.getElementById('blocks');
+            // Clear previous content
+            blocksContainer.innerHTML = '';
+            // Create a back arrow
+            const backArrow = document.createElement('div');
+            backArrow.textContent = '← Back';
+            backArrow.classList.add('back-arrow');
+            backArrow.addEventListener('click', function() {
+                displayBlocks();
+                backArrow.style.display = 'none';
+            });
+            blocksContainer.appendChild(backArrow);
+            // Create a div for each user
+            users.forEach(function(userData) {
+                const userDiv = document.createElement('div');
+                userDiv.classList.add('user-container');
+                userDiv.innerHTML = `
+                    <p>Username: ${userData.username}</p>
+                    <p>Owner Name: ${userData.ownerName}</p>
+                    <p>Block: ${userData.block}</p>
+                    <p>Flat No: ${userData.flatNo}</p>
+                    <p>Phone Number: ${userData.phoneNumber}</p>
+                    <p>Alternate Phone Number: ${userData.alternatePhoneNumber}</p>
+                `;
+                blocksContainer.appendChild(userDiv);
+            });
+            backArrow.style.display = 'block';
+        }
+
+        function togglePendingWorks() {
+            const worksRef = database.ref('pendingWorks');
+            worksRef.once('value', function(snapshot) {
+                const pendingWorksContainer = document.getElementById('pendingWorks');
+                pendingWorksContainer.innerHTML = ''; // Clear previous content
+                const worksByType = {}; // Object to store pending works by work type
+                snapshot.forEach(function(childSnapshot) {
+                    const workData = childSnapshot.val();
+                    const workType = workData.workType;
+                    if (!worksByType[workType]) {
+                        worksByType[workType] = [];
+                    }
+                    worksByType[workType].push(workData);
+                });
+                // Display sorted works
+                for (const workType in worksByType) {
+                    const workTypeDiv = document.createElement('div');
+                    workTypeDiv.classList.add('work-type-container');
+                    workTypeDiv.textContent = `Work Type: ${workType}`;
+                    workTypeDiv.addEventListener('click', function() {
+                        displayWorksOfType(worksByType[workType]);
+                    });
+                    pendingWorksContainer.appendChild(workTypeDiv);
+                }
+                pendingWorksContainer.style.display = 'block';
+            });
+        }
+
+        function displayWorksOfType(works) {
+            const pendingWorksContainer = document.getElementById('pendingWorks');
+            // Clear previous content
+            pendingWorksContainer.innerHTML = '';
+            // Create a back arrow
+            const backArrow = document.createElement('div');
+            backArrow.textContent = '← Back';
+            backArrow.classList.add('back-arrow');
+            backArrow.addEventListener('click', function() {
+                togglePendingWorks();
+                backArrow.style.display = 'none';
+            });
+            pendingWorksContainer.appendChild(backArrow);
+            // Create a div for each work
+            works.forEach(function(workData) {
+                const workDiv = document.createElement('div');
+                workDiv.classList.add('work-container');
+                workDiv.innerHTML = `
+                    <div>Owner Name: ${workData.ownerName}</div>
+                    <div>Block: ${workData.block}</div>
+                    <div>Flat No: ${workData.flatNo}</div>
+                    <div>Phone Number: ${workData.phoneNumber}</div>
+                    <div>Work Description: ${workData.workDescription}</div>
+                    <div>Work Type: ${workData.workType}</div>
+                `;
+                // Append work data div to pending works container
+                pendingWorksContainer.appendChild(workDiv);
+            });
+            backArrow.style.display = 'block';
+        }
+        // Function to assign pending works to employees
+        function assignPendingWorks() {
+    const employeesRef = database.ref('Employees');
+    const pendingWorksRef = database.ref('pendingWorks');
+    const assignedWorksRef = database.ref('AssignedWorks');
+
+    employeesRef.once('value', function(employeesSnapshot) {
+        pendingWorksRef.once('value', function(pendingWorksSnapshot) {
+            const employees = employeesSnapshot.val();
+            const pendingWorks = pendingWorksSnapshot.val();
+
+            const assignedWorks = [];
+
+            if (!employees || !pendingWorks) {
+                console.error('No employees or pending works found');
+                alert('No employees or pending works found');
+                return;
+            }
+
+            // Loop through each pending work
+            for (const workId in pendingWorks) {
+                const pendingWork = pendingWorks[workId];
+                const workType = pendingWork.workType.toLowerCase(); // Ensure lowercase comparison
+                const block = pendingWork.block;
+                const pendingWorkName = pendingWork.ownerName; // Add pending work name
+
+                let assigned = false;
+
+                // Find employees matching work type and block
+                for (const employeeId in employees) {
+                    const employee = employees[employeeId];
+                    const employeeWorkType = employee.work.toLowerCase(); // Ensure lowercase comparison
+                    const employeeBlock = employee.block;
+
+                    if (employeeWorkType === workType && employeeBlock === block) {
+                        // Assign work to employee
+                        const assignedWork = {
+                            employeeId: employeeId,
+                            employeeName: employee.username,
+                            employeePhoneNumber: employee.phoneNumber,
+                            employeeAltPhoneNumber: employee.alternatePhoneNumber,
+                            pendingWorkId: workId, // Store pending work ID
+                            employeeUniqueId: employee.uid, // Store employee unique ID
+                            pendingWorkPhoneNumber: pendingWork.phoneNumber,
+                            pendingWorkAltPhoneNumber: pendingWork.alternatePhoneNumber,
+                            workType: workType,
+                            block: block,
+                            flatNo: pendingWork.flatNo,
+                            workDescription: pendingWork.workDescription,
+                            pendingWorkName: pendingWorkName, // Include pending work name
+                            pin: generatePin() // Generate and store PIN
+                        };
+                        assignedWorks.push(assignedWork);
+                        assigned = true;
+                        break; // Assign only to one employee
+                    }
+                }
+
+                if (!assigned) {
+                    console.warn(`No employee found for work type ${workType} in block ${block}`);
+                }
+            }
+
+            // Push assigned works to the database
+            assignedWorks.forEach((work, index) => {
+                assignedWorksRef.push(work)
+                    .then(() => {
+                        // Remove corresponding pending work after successful assignment
+                        pendingWorksRef.child(work.pendingWorkId).remove()
+                            .then(() => {
+                                console.log('Pending work removed:', work.pendingWorkId);
+                            })
+                            .catch((error) => {
+                                console.error('Error removing pending work:', error);
+                            });
+
+                        if (index === assignedWorks.length - 1) {
+                            alert('Works assigned successfully.');
+                            console.log('Assigned Works:', assignedWorks);
+                        }
+                    })
+                    .catch((error) => {
+                        alert('Error assigning works: ' + error.message);
+                        console.error('Error assigning works:', error);
+                    });
+            });
+
+            if (assignedWorks.length === 0) {
+                console.log('No works were assigned.');
+                alert('No works were assigned.');
+            }
+        });
+    });
+}
+
+
+// Function to generate a random 4-digit character PIN
+function generatePin() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let pin = '';
+    for (let i = 0; i < 4; i++) {
+        pin += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return pin;
+}
+
+
+function displayAssignedWorks(assignedWorks) {
+            const assignedWorksContainer = document.getElementById('assignedWorks');
+            assignedWorksContainer.innerHTML = ''; // Clear previous content
+
+            assignedWorks.forEach(function(assignedWork, index) {
+                const assignedWorkDiv = document.createElement('div');
+                assignedWorkDiv.classList.add('assigned-work-item');
+
+                // Construct the content for the assigned work div
+                const content = `
+                    <p>Employee Name: ${assignedWork.employeeName}</p>
+                    <p>Employee Phone Number: ${assignedWork.employeePhoneNumber}</p>
+                    <p>Employee Alternate Phone Number: ${assignedWork.employeeAltPhoneNumber}</p>
+                    <p>Pending Work Name: ${assignedWork.pendingWorkName}</p>
+                    <p>Pending Work Phone Number: ${assignedWork.pendingWorkPhoneNumber}</p>
+                    <p>Pending Work Alternate Phone Number: ${assignedWork.pendingWorkAltPhoneNumber}</p>
+                    <p>Work Description: ${assignedWork.workDescription}</p>
+                    <p>Work Type: ${assignedWork.workType}</p>
+                    <p>Block: ${assignedWork.block}</p>
+                    <p>Flat Number: ${assignedWork.flatNo}</p>
+                    <p>pin: ${assignedWork.pin}</p>
+                    <button class="call-button" onclick="callPendingWork('${assignedWork.pendingWorkPhoneNumber}')">Call Pending Work</button>
+                    <button class="call-button" onclick="callEmployee('${assignedWork.employeePhoneNumber}')">Call Employee</button>
+                `;
+
+                assignedWorkDiv.innerHTML = content;
+
+                // Append the assigned work div to the assigned works container
+                assignedWorksContainer.appendChild(assignedWorkDiv);
+            });
+
+            assignedWorksContainer.style.display = 'block';
+        }
+
+        // Function to call the pending work phone number
+        function callPendingWork(phoneNumber) {
+            window.open(`tel:${phoneNumber}`, '_blank');
+        }
+
+        // Function to call the employee phone number
+        function callEmployee(phoneNumber) {
+            window.open(`tel:${phoneNumber}`, '_blank');
+        }
+
+        // Assuming assignedWorksRef is the reference to the "AssignedWorks" node in the database
+        const assignedWorksRef = database.ref('AssignedWorks');
+        assignedWorksRef.once('value', function(snapshot) {
+            const assignedWorks = [];
+            snapshot.forEach(function(childSnapshot) {
+                assignedWorks.push(childSnapshot.val());
+            });
+            displayAssignedWorks(assignedWorks);
+        });
+
+
+
+        function addNewInfo() {
+    // Display a text area for input
+    const newInfoContent = prompt('Enter the new information:');
+    if (newInfoContent) {
+        const timestamp = firebase.database.ServerValue.TIMESTAMP;
+        database.ref('latestInfo').push({
+            content: newInfoContent,
+            timestamp: timestamp
+        });
+    }
+}
+function toggleLatestInfo() {
+    const latestInfoRef = database.ref('latestInfo');
+    latestInfoRef.on('value', function(snapshot) {
+        const latestInfoContainer = document.getElementById('latestInfo');
+        latestInfoContainer.innerHTML = ''; // Clear previous content
+        snapshot.forEach(function(childSnapshot) {
+            const infoData = childSnapshot.val();
+            const infoDiv = document.createElement('div');
+            infoDiv.classList.add('info-item'); // Add a class to each div
+            const date = new Date(infoData.timestamp);
+            const formattedDate = `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`;
+            infoDiv.textContent = `${infoData.content} (${formattedDate})`;
+
+            // Create update button
+            const updateButton = document.createElement('button');
+            updateButton.className = 'update-button'
+            updateButton.textContent = 'Update';
+            updateButton.addEventListener('click', function() {
+                const newContent = prompt('Enter new content:');
+                if (newContent !== null) {
+                    const newTimestamp = Date.now(); // Get current timestamp
+                    // Update the content and timestamp in the database
+                    childSnapshot.ref.update({ content: newContent, timestamp: newTimestamp });
+                }
+            });
+
+            // Create delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button';
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function() {
+                // Delete the content from the database
+                childSnapshot.ref.remove();
+            });
+
+            // Append buttons to infoDiv
+            infoDiv.appendChild(updateButton);
+            infoDiv.appendChild(deleteButton);
+
+            // Create a new div for each content iteration
+            const contentDiv = document.createElement('div');
+            
+            contentDiv.classList.add('content-item'); // Add a class to each content div
+            contentDiv.appendChild(infoDiv);
+
+            // Append the content div to the latest info container
+            latestInfoContainer.appendChild(contentDiv);
+        });
+        latestInfoContainer.style.display = 'block';
+    });
+}
+
+
+
+
+        // Display blocks on page load
+        displayBlocks();
+        togglePendingWorks();
+        toggleLatestInfo();
+    </script>
+</body>
+</html>
+

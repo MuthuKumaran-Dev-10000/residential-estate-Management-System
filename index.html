@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Management System</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #d2e7f0, #203a43, #808081);
+            animation: gradientBackground 10s ease infinite;
+        }
+        #yinyang-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #yinyang {
+            width: 300px;
+            height: auto;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h2 {
+            color: #100e0e;
+        }
+
+        .link-container {
+            margin-top: 20px;
+        }
+
+        .link-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .link-container a:hover {
+            background-color: #0056b3;
+        }
+
+        .link-container a.client-side {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .link-container a.client-side:hover {
+            background-color: #f0f0f0;
+        }
+
+        .link-container a.office-side {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .link-container a.office-side:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="yinyang-container">
+        <map name="yinyang-map">
+           
+            <area shape="rect" coords="150,0 0,150 0,300 150,150" href="./Client%20Side/index.html" alt="Client Side">
+            
+            <area shape="rect" coords="150,0 300,150 300,300 150,150" href="./Office%20Side/index.html" alt="Office Side">
+        </map>
+        <img id="yinyang" src="yinyan.png" usemap="#yinyang-map" alt="Yin Yang Symbol">
+    <br></div><br>
+    <div class="container">
+        <h2>Welcome to Home Management System</h2>
+        <div class="link-container">
+            <a href="./Client%20Side/index.html" class="client-side">Client Side</a>
+            <a href="./Office%20Side/index.html" class="office-side">Office Side</a>
+        </div>
+    </div>
+</body>
+
+</html>
