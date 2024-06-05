@@ -31,13 +31,13 @@ form {
 h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: #FFD700; 
+    color: #FFD700; /* Gold */
 }
 
 label {
     display: block;
     margin-bottom: 10px;
-    color: #88A9C3; 
+    color: #88A9C3; /* Blue Gray */
 }
 
 input[type="text"],
@@ -49,8 +49,8 @@ button {
     margin-bottom: 20px;
     border: none;
     border-radius: 5px;
-    background-color: #2B4257; 
-    color: #FFFFFF;
+    background-color: #2B4257; /* Midnight Blue */
+    color: #FFFFFF; /* White */
     font-size: 1em;
     transition: background-color 0.3s ease;
     margin-left: 10px;
@@ -64,13 +64,13 @@ input[type="tel"]:focus {
 
 button {
     cursor: pointer;
-    background-color: #FFD700; 
+    background-color: #FFD700; /* Gold */
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #C0C0C0; 
+    background-color: #C0C0C0; /* Silver */
 }
 
 #error {
@@ -128,7 +128,7 @@ button:hover {
         document.getElementById('signupForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
-            
+           
             var username = document.getElementById('username').value.trim();
             var password = document.getElementById('password').value.trim();
             var confirmPassword = document.getElementById('confirmPassword').value.trim();
@@ -153,7 +153,7 @@ button:hover {
                     
                     var uniqueIdentifier = Date.now().toString();
 
-                   
+                    
                     var newUser = {
                         password: password,
                         signupId: uniqueIdentifier

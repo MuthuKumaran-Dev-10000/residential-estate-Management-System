@@ -110,12 +110,12 @@
     </form>
     <p id="error"></p>
 
-    <!-- Include Firebase SDK -->
+    
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
 
     <script>
-        // Firebase configuration
+       
         var firebaseConfig = {
             apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
             authDomain: "ticket-management-system-65caa.firebaseapp.com",
@@ -127,16 +127,16 @@
             measurementId: "G-VTG0KT6DLE"
         };
 
-        // Initialize Firebase
+        
         firebase.initializeApp(firebaseConfig);
 
-        // Generate a random unique identifier similar to "1716919235285"
+        
         function generateUniqueId() {
             return Math.floor(1000000000000 + Math.random() * 9000000000000).toString();
         }
 
         function signup() {
-            // Retrieve form values
+           
             var username = document.getElementById('username').value.trim();
             var phoneNumber = document.getElementById('phoneNumber').value.trim();
             var alternatePhoneNumber = document.getElementById('alternatePhoneNumber').value.trim();
@@ -145,22 +145,22 @@
             var password = document.getElementById('password').value.trim();
             var confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-            // Validate passwords match
+            
             if (password !== confirmPassword) {
                 showError('Passwords do not match');
                 return;
             }
 
-            // Check if username already exists
+           
             var usernamesRef = firebase.database().ref('Employees/' + username);
             usernamesRef.once('value', function(snapshot) {
                 if (snapshot.exists()) {
                     showError('Username already exists');
                 } else {
-                    // Generate a unique identifier
+                    
                     var uniqueIdentifier = generateUniqueId();
 
-                    // Store user data in the Employees field
+                    
                     var userData = {
                         username: username,
                         phoneNumber: phoneNumber,
@@ -174,7 +174,7 @@
                     firebase.database().ref('Employees/' + uniqueIdentifier).set(userData)
                         .then(function() {
                             alert('Signup successful');
-                            window.location.href = "index.html"; // Redirect to login page
+                            window.location.href = "index.html"; 
                         })
                         .catch(function(error) {
                             showError(error.message);
@@ -187,7 +187,6 @@
             document.getElementById('error').textContent = message;
         }
 
-        // Function to show/hide the 'otherWork' input based on the selection in the 'work' dropdown
         function checkWork() {
             var workSelect = document.getElementById('work');
             var otherWorkInput = document.getElementById('otherWork');

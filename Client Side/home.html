@@ -49,7 +49,7 @@ body {
 }
 
 .content {
-    padding-top: 60px; /* Adjust according to navbar height */
+    padding-top: 60px; 
 }
 
 #infoBox {
@@ -78,7 +78,7 @@ body {
     margin-bottom: 10px;
     border-radius: 5px;
 }
-/* Blink animation */
+
 @keyframes blink {
     50% {
         opacity: 0;
@@ -88,13 +88,13 @@ body {
 .scrolling-content-container {
     overflow: hidden;
     position: relative;
-    height: 200px; /* Adjust height as needed */
+    height: 200px; 
 }
 
 .scrolling-content {
     position: absolute;
     bottom: 0;
-    animation: scroll-up 20s linear infinite; /* Adjust animation duration as needed */
+    animation: scroll-up 20s linear infinite; 
 }
 
 @keyframes scroll-up {
@@ -115,7 +115,7 @@ body {
 
     </style>
     <style>
-        /* Footer Styles */
+        
         .footer {
             background-color: #222;
             color: #fff;
@@ -184,13 +184,13 @@ body {
 
         <div id="infoBox"></div>
 
-        <!-- Include Firebase SDK -->
+        
         <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
 
 
         <script>
-            // Firebase configuration
+            
             const firebaseConfig = {
                 apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
                 authDomain: "ticket-management-system-65caa.firebaseapp.com",
@@ -202,7 +202,7 @@ body {
                 measurementId: "G-VTG0KT6DLE"
             };
 
-            // Initialize Firebase
+            
             firebase.initializeApp(firebaseConfig);
 
             window.onload = function() {
@@ -235,6 +235,7 @@ body {
     <div id="info" class="section" style="background-color: #ddd;">
         <h2>Info Section</h2>
         <div class="scrolling-content-container">
+            <div id="latestUpdates" class="blink" style="color: red; ">Latest Updates</div>
             <div class="scrolling-content"></div>
         </div>
     </div>
@@ -252,11 +253,7 @@ body {
     </div>
     
     <script>
-        // Reference to the AssignedWorks node in Firebase
-
-
-
-// Call the function to display assigned works when the page is loaded
+        
 
 
 function uploadImage() {
@@ -264,35 +261,35 @@ function uploadImage() {
     const imageInput = document.getElementById('imageInput');
     const file = imageInput.files[0];
     
-    // Retrieve user ID from session storage
+    
     const userId = sessionStorage.getItem('userId');
 
     if (file) {
-        // Construct the new file name
+        
         let fileName = `images/${userId}/${file.name}`;
 
-        // Create a storage reference
+        
         const storageRef = firebase.storage().ref(fileName);
 
-        // Upload file
+        
         const uploadTask = storageRef.put(file);
 
-        // Monitor upload progress
+        
         uploadTask.on('state_changed', 
             (snapshot) => {
-                // Progress
+               
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
             },
             (error) => {
-                // Error
+                
                 console.error('Error uploading image:', error);
             },
             () => {
-                // Upload completed successfully, now get the download URL
+               
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                     console.log('File available at', downloadURL);
-                    // Display the uploaded image
+                   
                     const imageContainer = document.getElementById('imageContainer');
                     imageContainer.innerHTML = `<img src="${downloadURL}" alt="Uploaded Image">`;
                 });
@@ -305,25 +302,25 @@ function uploadImage() {
 
 
 
-        // Function to scroll the content automatically
+       
 function scrollContent() {
     const scrollingContentDiv = document.getElementById('scrollingContent');
-    scrollingContentDiv.scrollTop += 1; // Adjust the scrolling speed by changing this value
+    scrollingContentDiv.scrollTop += 1; 
 }
 
-// Call the scrollContent function every 100 milliseconds
+
 setInterval(scrollContent, 100);
 
 function loadLatestInfo() {
                 const latestInfoRef = firebase.database().ref('latestInfo');
                 latestInfoRef.on('value', function(snapshot) {
                     const latestInfoContainer = document.querySelector('.scrolling-content');
-                    latestInfoContainer.innerHTML = ''; // Clear previous content
+                    latestInfoContainer.innerHTML = ''; 
 
                     snapshot.forEach(function(childSnapshot) {
                         const infoData = childSnapshot.val();
                         const infoDiv = document.createElement('div');
-                        infoDiv.classList.add('info-item'); // Add a class to each div
+                        infoDiv.classList.add('info-item'); 
 
                         const contentSpan = document.createElement('span');
                         contentSpan.textContent = infoData.content;
@@ -348,16 +345,16 @@ function loadLatestInfo() {
             assignedWorksRef.once('value')
         .then((snapshot) => {
             const assignedWorks = snapshot.val();
-            console.log('Assigned Works:', assignedWorks); // Log the retrieved data
+            console.log('Assigned Works:', assignedWorks); 
 
             const assignedWorksDiv = document.getElementById('AssignedWorks');
-            assignedWorksDiv.innerHTML = ''; // Clear previous content
+            assignedWorksDiv.innerHTML = ''; 
 
             for (const key in assignedWorks) {
                 const workData = assignedWorks[key];
                 const workDiv = document.createElement('div');
                 workDiv.className = 'assigned-work';
-                workDiv.style.backgroundColor = 'green'; // Set background color to green
+                workDiv.style.backgroundColor = 'green'; 
                 workDiv.innerHTML = `
                     <h3>Employee Name: ${workData.employeeName}</h3>
                     <p>Work Type: ${workData.workType}</p>
@@ -377,14 +374,14 @@ function loadLatestInfo() {
 
                     document.getElementById('userIdDisplay').textContent = userId;
 
-                    // First, retrieve the signupId using the username
+                    
                     firebase.database().ref('usernames/' + userId).once('value')
                         .then((snapshot) => {
                             const user = snapshot.val();
                             if (user && user.signupId) {
                                 const signupId = user.signupId;
 
-                                // Now retrieve the detailed user data using signupId
+                                
                                 return firebase.database().ref('signupFormData/' + signupId).once('value');
                             } else {
                                 throw new Error('No signupId found for the user');
@@ -415,13 +412,13 @@ function loadLatestInfo() {
             if (userId) {
                 document.getElementById('userIdDisplay').textContent = userId;
     
-                // First, retrieve the signupId using the username
+                
                 firebase.database().ref('usernames/' + userId).once('value')
                     .then((snapshot) => {
                         const user = snapshot.val();
                         if (user && user.signupId) {
                             const signupId = user.signupId;
-                            // Now retrieve the detailed user data using signupId
+                            
                             return firebase.database().ref('signupFormData/' + signupId).once('value');
                         } else {
                             throw new Error('No signupId found for the user');
@@ -430,7 +427,7 @@ function loadLatestInfo() {
                     .then((snapshot) => {
                         const userDetails = snapshot.val();
                         if (userDetails) {
-                            // Now retrieve the pending works for this user
+                           
                             return firebase.database().ref('pendingWorks').orderByChild('userId').equalTo(userId).once('value')
                                 .then((snapshot) => {
                                     const pendingWorks = snapshot.val();

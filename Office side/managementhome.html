@@ -31,7 +31,7 @@
     transition: transform 0.3s ease;
 }
 
-/* Parallax Scrolling */
+
 .parallax-bg {
     background-attachment: fixed;
     background-position: center;
@@ -40,7 +40,7 @@
 }
 
 .parallax-section {
-    height: 400px; /* Adjust height as needed */
+    height: 400px; 
     position: relative;
 }
 
@@ -52,7 +52,7 @@
     color: #fff;
 }
 
-/* Scroll Animations */
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -81,7 +81,7 @@
     animation: slideInRight 1s ease;
 }
 
-/* Your Custom Styles */
+
 .container {
     margin-top: 50px;
 }
@@ -185,7 +185,7 @@
     background-color: #f9f9f9;
 }
 
-/* Hover Effects */
+
 .block-container:hover,
 .user-container:hover,
 .back-arrow:hover,
@@ -196,7 +196,7 @@
 .work-type-container:hover,
 .work-container:hover,
 .latest-info-container:hover {
-    background-color: #f0f0f0; /* Change to any color you prefer */
+    background-color: #f0f0f0;
 }
 
 .info-item {
@@ -224,7 +224,7 @@
             border-radius: 3px;
             cursor: pointer;
             color: #fff;
-            margin-left: 2px; /* Small margin to avoid overlap */
+            margin-left: 2px; 
         }
         .info-item .update-button {
             background-color: #007bff;
@@ -237,17 +237,17 @@
             border-bottom-left-radius: 0;
         }
 
-        /* Style for the toggle container */
+        
 #toggleContainer {
   display: inline-block;
 }
 
-/* Hide the default checkbox */
+
 #toggleBtn {
   display: none;
 }
 
-/* Style for the toggle button appearance */
+
 #toggleBtn + label {
   display: inline-block;
   cursor: pointer;
@@ -277,12 +277,12 @@
   transition: transform 0.3s ease; /* Add a smooth transition effect */
 }
 
-/* Move the indicator to the right when toggle is checked */
+
 #toggleBtn:checked + label::after {
-  transform: translateX(30px); /* Position the indicator to the right */
+  transform: translateX(30px);
 }
 
-/* Hide the outline on focus */
+
 #toggleBtn:focus + label {
   outline: none;
 }
@@ -295,7 +295,7 @@
             <div class="col">
                 <h2>Apartment Blocks</h2>
                 <div id="blocks">
-                    <!-- Blocks will be displayed here -->
+                    
                 </div>
             </div>
         </div>
@@ -312,7 +312,7 @@
                         <label >Automatically assign task 30 mins once</label>
                     </div>
                     <div class="pending-works-container" id="pendingWorks" style="display: none;">
-                        <!-- Pending works will be displayed here -->
+                        
                     </div>
                 </div>
             </div>
@@ -325,7 +325,7 @@
                     <h2>Latest Info</h2>
                     <button class="btn btn-primary mb-3" onclick="addNewInfo()">Add New</button>
                     <div class="latest-info-container" id="latestInfo" style="display: none;">
-                        <!-- Latest info will be displayed here -->
+                        
                     </div>
                 </div>
             </div>
@@ -373,7 +373,7 @@
 </footer>
 
 <style>
-/* Footer Styles */
+
 .footer {
     background-color: #222;
     color: #fff;
@@ -421,39 +421,39 @@
 </style>
 
 
-    <!-- Include Firebase SDK -->
+    
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
 
     <script>
-        // Function to call assignPendingWorks every 30 minutes
+       
 function startAssignPendingInterval() {
-    const interval = setInterval(assignPendingWorks, 30 * 60 * 1000); // 30 minutes interval
+    const interval = setInterval(assignPendingWorks, 30 * 60 * 1000); 
 
-    // Return the interval so it can be cleared later
+
     return interval;
 }
 
-// Function to stop calling assignPendingWorks
+
 function stopAssignPendingInterval(interval) {
-    clearInterval(interval); // Clear the interval
+    clearInterval(interval); 
 }
 
-// Check the toggle button state and start/stop interval accordingly
+
 document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.getElementById('toggleBtn');
     let interval;
 
     toggleBtn.addEventListener('change', function () {
         if (toggleBtn.checked) {
-            interval = startAssignPendingInterval(); // Start the interval
+            interval = startAssignPendingInterval(); 
         } else {
-            stopAssignPendingInterval(interval); // Stop the interval
+            stopAssignPendingInterval(interval); 
         }
     });
 });
 
-        // Firebase configuration
+        
         const firebaseConfig = {
             apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
             authDomain: "ticket-management-system-65caa.firebaseapp.com",
@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function () {
             measurementId: "G-VTG0KT6DLE"
         };
 
-        // Initialize Firebase
+        
         firebase.initializeApp(firebaseConfig);
 
         const database = firebase.database();
@@ -483,9 +483,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     blocks[block].push(userData);
                 });
-                // Clear previous content
+                
                 blocksContainer.innerHTML = '';
-                // Create a div for each block
+                
                 for (const block in blocks) {
                     const blockDiv = document.createElement('div');
                     blockDiv.classList.add('block-container');
@@ -500,9 +500,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function displayUsers(users) {
             const blocksContainer = document.getElementById('blocks');
-            // Clear previous content
+            
             blocksContainer.innerHTML = '';
-            // Create a back arrow
+            
             const backArrow = document.createElement('div');
             backArrow.textContent = '← Back';
             backArrow.classList.add('back-arrow');
@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 backArrow.style.display = 'none';
             });
             blocksContainer.appendChild(backArrow);
-            // Create a div for each user
+            
             users.forEach(function(userData) {
                 const userDiv = document.createElement('div');
                 userDiv.classList.add('user-container');
@@ -532,8 +532,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const worksRef = database.ref('pendingWorks');
             worksRef.once('value', function(snapshot) {
                 const pendingWorksContainer = document.getElementById('pendingWorks');
-                pendingWorksContainer.innerHTML = ''; // Clear previous content
-                const worksByType = {}; // Object to store pending works by work type
+                pendingWorksContainer.innerHTML = ''; 
+                const worksByType = {}; 
                 snapshot.forEach(function(childSnapshot) {
                     const workData = childSnapshot.val();
                     const workType = workData.workType;
@@ -542,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     worksByType[workType].push(workData);
                 });
-                // Display sorted works
+                
                 for (const workType in worksByType) {
                     const workTypeDiv = document.createElement('div');
                     workTypeDiv.classList.add('work-type-container');
@@ -558,9 +558,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function displayWorksOfType(works) {
             const pendingWorksContainer = document.getElementById('pendingWorks');
-            // Clear previous content
+           
             pendingWorksContainer.innerHTML = '';
-            // Create a back arrow
+            
             const backArrow = document.createElement('div');
             backArrow.textContent = '← Back';
             backArrow.classList.add('back-arrow');
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 backArrow.style.display = 'none';
             });
             pendingWorksContainer.appendChild(backArrow);
-            // Create a div for each work
+            
             works.forEach(function(workData) {
                 const workDiv = document.createElement('div');
                 workDiv.classList.add('work-container');
@@ -581,12 +581,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div>Work Description: ${workData.workDescription}</div>
                     <div>Work Type: ${workData.workType}</div>
                 `;
-                // Append work data div to pending works container
+                
                 pendingWorksContainer.appendChild(workDiv);
             });
             backArrow.style.display = 'block';
         }
-        // Function to assign pending works to employees
+        
         function assignPendingWorks() {
     const employeesRef = database.ref('Employees');
     const pendingWorksRef = database.ref('pendingWorks');
@@ -605,42 +605,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Loop through each pending work
+            
             for (const workId in pendingWorks) {
                 const pendingWork = pendingWorks[workId];
-                const workType = pendingWork.workType.toLowerCase(); // Ensure lowercase comparison
+                const workType = pendingWork.workType.toLowerCase(); 
                 const block = pendingWork.block;
-                const pendingWorkName = pendingWork.ownerName; // Add pending work name
-
+                const pendingWorkName = pendingWork.ownerName; 
                 let assigned = false;
 
-                // Find employees matching work type and block
+               
                 for (const employeeId in employees) {
                     const employee = employees[employeeId];
-                    const employeeWorkType = employee.work.toLowerCase(); // Ensure lowercase comparison
+                    const employeeWorkType = employee.work.toLowerCase(); 
                     const employeeBlock = employee.block;
 
                     if (employeeWorkType === workType && employeeBlock === block) {
-                        // Assign work to employee
+                       
                         const assignedWork = {
                             employeeId: employeeId,
                             employeeName: employee.username,
                             employeePhoneNumber: employee.phoneNumber,
                             employeeAltPhoneNumber: employee.alternatePhoneNumber,
-                            pendingWorkId: workId, // Store pending work ID
-                            employeeUniqueId: employee.uid, // Store employee unique ID
+                            pendingWorkId: workId, 
+                            employeeUniqueId: employee.uid, 
                             pendingWorkPhoneNumber: pendingWork.phoneNumber,
                             pendingWorkAltPhoneNumber: pendingWork.alternatePhoneNumber,
                             workType: workType,
                             block: block,
                             flatNo: pendingWork.flatNo,
                             workDescription: pendingWork.workDescription,
-                            pendingWorkName: pendingWorkName, // Include pending work name
-                            pin: generatePin() // Generate and store PIN
+                            pendingWorkName: pendingWorkName, 
+                            pin: generatePin()
                         };
                         assignedWorks.push(assignedWork);
                         assigned = true;
-                        break; // Assign only to one employee
+                        break; 
                     }
                 }
 
@@ -649,11 +648,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            // Push assigned works to the database
+            
             assignedWorks.forEach((work, index) => {
                 assignedWorksRef.push(work)
                     .then(() => {
-                        // Remove corresponding pending work after successful assignment
+                       
                         pendingWorksRef.child(work.pendingWorkId).remove()
                             .then(() => {
                                 console.log('Pending work removed:', work.pendingWorkId);
@@ -682,7 +681,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 
-// Function to generate a random 4-digit character PIN
+
 function generatePin() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let pin = '';
@@ -695,13 +694,13 @@ function generatePin() {
 
 function displayAssignedWorks(assignedWorks) {
             const assignedWorksContainer = document.getElementById('assignedWorks');
-            assignedWorksContainer.innerHTML = ''; // Clear previous content
+            assignedWorksContainer.innerHTML = '';
 
             assignedWorks.forEach(function(assignedWork, index) {
                 const assignedWorkDiv = document.createElement('div');
                 assignedWorkDiv.classList.add('assigned-work-item');
 
-                // Construct the content for the assigned work div
+                
                 const content = `
                     <p>Employee Name: ${assignedWork.employeeName}</p>
                     <p>Employee Phone Number: ${assignedWork.employeePhoneNumber}</p>
@@ -720,24 +719,22 @@ function displayAssignedWorks(assignedWorks) {
 
                 assignedWorkDiv.innerHTML = content;
 
-                // Append the assigned work div to the assigned works container
                 assignedWorksContainer.appendChild(assignedWorkDiv);
             });
 
             assignedWorksContainer.style.display = 'block';
         }
 
-        // Function to call the pending work phone number
+        
         function callPendingWork(phoneNumber) {
             window.open(`tel:${phoneNumber}`, '_blank');
         }
 
-        // Function to call the employee phone number
+        
         function callEmployee(phoneNumber) {
             window.open(`tel:${phoneNumber}`, '_blank');
         }
 
-        // Assuming assignedWorksRef is the reference to the "AssignedWorks" node in the database
         const assignedWorksRef = database.ref('AssignedWorks');
         assignedWorksRef.once('value', function(snapshot) {
             const assignedWorks = [];
@@ -750,7 +747,7 @@ function displayAssignedWorks(assignedWorks) {
 
 
         function addNewInfo() {
-    // Display a text area for input
+    
     const newInfoContent = prompt('Enter the new information:');
     if (newInfoContent) {
         const timestamp = firebase.database.ServerValue.TIMESTAMP;
@@ -764,48 +761,47 @@ function toggleLatestInfo() {
     const latestInfoRef = database.ref('latestInfo');
     latestInfoRef.on('value', function(snapshot) {
         const latestInfoContainer = document.getElementById('latestInfo');
-        latestInfoContainer.innerHTML = ''; // Clear previous content
+        latestInfoContainer.innerHTML = ''; 
         snapshot.forEach(function(childSnapshot) {
             const infoData = childSnapshot.val();
             const infoDiv = document.createElement('div');
-            infoDiv.classList.add('info-item'); // Add a class to each div
+            infoDiv.classList.add('info-item'); 
             const date = new Date(infoData.timestamp);
             const formattedDate = `${date.toLocaleDateString()}, ${date.toLocaleTimeString()}`;
             infoDiv.textContent = `${infoData.content} (${formattedDate})`;
 
-            // Create update button
+            
             const updateButton = document.createElement('button');
             updateButton.className = 'update-button'
             updateButton.textContent = 'Update';
             updateButton.addEventListener('click', function() {
                 const newContent = prompt('Enter new content:');
                 if (newContent !== null) {
-                    const newTimestamp = Date.now(); // Get current timestamp
-                    // Update the content and timestamp in the database
+                    const newTimestamp = Date.now(); 
                     childSnapshot.ref.update({ content: newContent, timestamp: newTimestamp });
                 }
             });
 
-            // Create delete button
+            
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'Delete';
             deleteButton.addEventListener('click', function() {
-                // Delete the content from the database
+                
                 childSnapshot.ref.remove();
             });
 
-            // Append buttons to infoDiv
+            
             infoDiv.appendChild(updateButton);
             infoDiv.appendChild(deleteButton);
 
-            // Create a new div for each content iteration
+            
             const contentDiv = document.createElement('div');
             
-            contentDiv.classList.add('content-item'); // Add a class to each content div
+            contentDiv.classList.add('content-item'); 
             contentDiv.appendChild(infoDiv);
 
-            // Append the content div to the latest info container
+            
             latestInfoContainer.appendChild(contentDiv);
         });
         latestInfoContainer.style.display = 'block';
@@ -815,7 +811,7 @@ function toggleLatestInfo() {
 
 
 
-        // Display blocks on page load
+       
         displayBlocks();
         togglePendingWorks();
         toggleLatestInfo();

@@ -133,12 +133,12 @@
         </form>
     </div>
 
-    <!-- Include Firebase SDK -->
+    
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
 
     <script>
-        // Firebase configuration
+        
         const firebaseConfig = {
             apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
             authDomain: "ticket-management-system-65caa.firebaseapp.com",
@@ -150,7 +150,7 @@
             measurementId: "G-VTG0KT6DLE"
         };
 
-        // Initialize Firebase
+        
         firebase.initializeApp(firebaseConfig);
 
         function validate(event) {
@@ -162,7 +162,7 @@
                 .then((snapshot) => {
                     const user = snapshot.val();
                     if (user && user.password === password) {
-                        // Store the unique identifier in session storage
+                        
                         sessionStorage.setItem('userId', username);
                         window.location.href = 'home.html';
                     } else {

@@ -12,7 +12,7 @@
         <select id="location" name="location">
             <option value="Block A">Block A</option>
             <option value="Block B">Block B</option>
-            <!-- Add more options as needed -->
+            
         </select><br><br>
 
         <label for="contactName">Contact Person Name:</label>
@@ -24,12 +24,12 @@
         <button type="submit">Submit</button>
     </form>
 
-    <!-- Include Firebase SDK -->
+    
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
 
     <script>
-        // Firebase configuration
+        
         const firebaseConfig = {
             apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
             authDomain: "ticket-management-system-65caa.firebaseapp.com",
@@ -40,25 +40,25 @@
             appId: "1:865606629959:web:97375dc49961504f2a0f62",
             measurementId: "G-VTG0KT6DLE"
         };
-        // Initialize Firebase
+        
         firebase.initializeApp(firebaseConfig);
 
-        // Reference to the Employees collection in the database
+        
         const employeesRef = firebase.database().ref('Employees');
 
-        // Form submission event listener
+        
         document.getElementById('officeForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission behavior
+            event.preventDefault(); 
 
-            // Get form values
+            
             const location = document.getElementById('location').value;
             const contactName = document.getElementById('contactName').value;
             const contactNumber = document.getElementById('contactNumber').value;
 
-            // Generate unique identifier
+            
             const uniqueId = Date.now().toString();
 
-            // Store data in the database
+            
             employeesRef.child(uniqueId).set({
                 location: location,
                 contactName: contactName,
@@ -67,7 +67,7 @@
             })
             .then(() => {
                 alert('Data stored successfully!');
-                // Clear form fields after successful submission
+                
                 document.getElementById('officeForm').reset();
             })
             .catch(error => {

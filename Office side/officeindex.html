@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Freeman&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Your custom CSS styles here */
+        
         body {
             background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
             animation: gradientBackground 10s ease infinite;
@@ -103,7 +103,7 @@
             text-decoration: none;
         }
 
-        /* Loader styles */
+        
         .loader-container {
             position: fixed;
             top: 0;
@@ -156,12 +156,12 @@
         </div>
     </div>
 
-    <!-- Include Firebase SDK -->
+   
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
 
     <script>
-        // Firebase configuration
+       
         const firebaseConfig = {
             apiKey: "AIzaSyAbFLnUlZJemaqgH6pFyuzzBGXle6YoQac",
             authDomain: "ticket-management-system-65caa.firebaseapp.com",
@@ -173,7 +173,7 @@
             measurementId: "G-VTG0KT6DLE"
         };
 
-        // Initialize Firebase
+        
         firebase.initializeApp(firebaseConfig);
 
         function validate(event) {
@@ -187,13 +187,12 @@
                     snapshot.forEach((childSnapshot) => {
                         const employee = childSnapshot.val();
                         if (employee.username === username && employee.password === password) {
-                            // Store the unique identifier and user data in session storage
                             sessionStorage.setItem('userId', employee.uid);
                             sessionStorage.setItem('username', username);
                             sessionStorage.setItem('password', password);
                             isValid = true;
 
-                            // Redirect based on work type
+                            
                             const workType = employee.work.toLowerCase();
                             if (workType === 'management') {
                                 window.location.href = 'managementhome.html';
@@ -210,11 +209,11 @@
                             } else {
                                 console.log('Invalid work type!');
                             }
-                            return; // Exit the loop after finding the user
+                            return; 
                         }
                     });
                     if (!isValid) {
-                        // If no matching user is found
+                        
                         console.log('Invalid username or password');
                     }
                 })
